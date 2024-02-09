@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import css from './App.module.css';
 import ContactForm from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
@@ -15,6 +18,24 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount() {
+    const storagedContacts = JSON.parse(localStorage.getItem('phoneContacts'));
+    if (storagedContacts) {
+      this.setState({
+        contacts: [...storagedContacts],
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(
+        'phoneContacts',
+        JSON.stringify(this.state.contacts)
+      );
+    }
+  }
 
   changeFilter = evt => {
     this.setState({ filter: evt.currentTarget.value });
@@ -36,7 +57,7 @@ class App extends Component {
 
   onAddContact = newContact => {
     if (newContact.name.trim() === '' || newContact.number.trim() === '') {
-      alert('Please enter both name and number.');
+      toast.info('Please enter both name and number.');
       return;
     }
     if (
@@ -46,7 +67,7 @@ class App extends Component {
           newContact.name.toLocaleLowerCase()
       )
     ) {
-      alert(`Contact "${newContact.name}" is already in contacts`);
+      toast.info(`Contact "${newContact.name}" is already in contacts`);
       return;
     }
 
@@ -69,6 +90,7 @@ class App extends Component {
           filteredContacts={filteredContacts}
           handleDelete={this.handleDelete}
         />
+        <ToastContainer />
       </div>
     );
   }
