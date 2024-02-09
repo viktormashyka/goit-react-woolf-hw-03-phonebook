@@ -1,0 +1,29 @@
+.container {
+  width: 350px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #222831;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: 5px solid #fff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 32px;
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: 24px;
+}
