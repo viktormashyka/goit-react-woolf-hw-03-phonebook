@@ -56,10 +56,6 @@ class App extends Component {
   };
 
   onAddContact = newContact => {
-    if (newContact.name.trim() === '' || newContact.number.trim() === '') {
-      toast.info('Please enter both name and number.');
-      return;
-    }
     if (
       this.state.contacts.some(
         contact =>
